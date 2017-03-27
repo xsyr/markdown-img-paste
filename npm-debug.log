@@ -1,0 +1,89 @@
+0 info it worked if it ends with ok
+1 verbose cli [ 'C:\\Users\\EcadiaThinkpad\\AppData\\Local\\atom\\app-1.15.0\\resources\\app\\apm\\bin\\node.exe',
+1 verbose cli   'C:\\Users\\EcadiaThinkpad\\AppData\\Local\\atom\\app-1.15.0\\resources\\app\\apm\\node_modules\\npm\\bin\\npm-cli.js',
+1 verbose cli   'version',
+1 verbose cli   'minor',
+1 verbose cli   '-m',
+1 verbose cli   'Prepare %s release' ]
+2 info using npm@3.10.5
+3 info using node@v4.4.5
+4 info git [ 'status', '--porcelain' ]
+5 info lifecycle markdown-image-paste@0.2.0~preversion: markdown-image-paste@0.2.0
+6 silly lifecycle markdown-image-paste@0.2.0~preversion: no script for preversion, continuing
+7 verbose version.write data { name: 'markdown-image-paste',
+7 verbose version.write   main: './lib/markdown-img-paste',
+7 verbose version.write   version: '0.2.0',
+7 verbose version.write   description: 'Just use \'ctrl+shfit+v\' paste image into markdown',
+7 verbose version.write   keywords: [ 'markdown', 'md', 'image', 'paste' ],
+7 verbose version.write   activationCommands: { 'atom-workspace': 'markdown-img-paste:paste' },
+7 verbose version.write   repository: 'https://github.com/nmecad/markdown-img-paste.git',
+7 verbose version.write   license: 'MIT',
+7 verbose version.write   engines: { atom: '>=1.0.0 <2.0.0' },
+7 verbose version.write   dependencies: { qiniu: '=6.1.11', request: '^2.55.0' },
+7 verbose version.write   configSchema:
+7 verbose version.write    { only_markdown:
+7 verbose version.write       { type: 'boolean',
+7 verbose version.write         default: true,
+7 verbose version.write         title: 'Only in markdown grammar to enable the plugin',
+7 verbose version.write         description: '' },
+7 verbose version.write      use_assets_folder:
+7 verbose version.write       { type: 'boolean',
+7 verbose version.write         default: false,
+7 verbose version.write         title: 'Save images in assets folder',
+7 verbose version.write         description: '' },
+7 verbose version.write      upload_to_mssm:
+7 verbose version.write       { type: 'boolean',
+7 verbose version.write         default: false,
+7 verbose version.write         title: 'Use sm.ms for image link',
+7 verbose version.write         description: '' },
+7 verbose version.write      upload_to_qiniu:
+7 verbose version.write       { type: 'boolean',
+7 verbose version.write         default: false,
+7 verbose version.write         title: 'Use qiniu for image link',
+7 verbose version.write         description: '' },
+7 verbose version.write      zAccessKey:
+7 verbose version.write       { type: 'string',
+7 verbose version.write         default: '',
+7 verbose version.write         title: 'AccessKey',
+7 verbose version.write         description: '' },
+7 verbose version.write      zSecretKey:
+7 verbose version.write       { type: 'string',
+7 verbose version.write         default: '',
+7 verbose version.write         title: 'SecretKey',
+7 verbose version.write         description: '' },
+7 verbose version.write      zbucket: { type: 'string', default: '', title: 'Bucket', description: '' },
+7 verbose version.write      zdomain:
+7 verbose version.write       { type: 'string',
+7 verbose version.write         default: 'http://',
+7 verbose version.write         title: 'Domain',
+7 verbose version.write         description: '' },
+7 verbose version.write      zuphost:
+7 verbose version.write       { type: 'string',
+7 verbose version.write         default: 'http://upload.qiniu.com',
+7 verbose version.write         title: 'Uphost',
+7 verbose version.write         description: '七牛云上传服务器域名，上传出错时可能是上传的区域服务器域名不对。默认不用设置。' } } } to package.json
+8 info lifecycle markdown-image-paste@0.2.0~version: markdown-image-paste@0.2.0
+9 silly lifecycle markdown-image-paste@0.2.0~version: no script for version, continuing
+10 info git [ 'add',
+10 info git   'C:\\Users\\EcadiaThinkpad\\Documents\\atom\\markdown-img-paste\\package.json' ]
+11 info git [ 'commit', '-m', 'Prepare 0.2.0 release' ]
+12 info git [ 'tag', 'v0.2.0', '-am', 'Prepare 0.2.0 release' ]
+13 verbose stack Error: Command failed: git -c core.longpaths=true tag v0.2.0 -am Prepare 0.2.0 release
+13 verbose stack fatal: tag 'v0.2.0' already exists
+13 verbose stack
+13 verbose stack     at ChildProcess.exithandler (child_process.js:213:12)
+13 verbose stack     at emitTwo (events.js:87:13)
+13 verbose stack     at ChildProcess.emit (events.js:172:7)
+13 verbose stack     at maybeClose (internal/child_process.js:827:16)
+13 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:211:5)
+14 verbose cwd C:\Users\EcadiaThinkpad\Documents\atom\markdown-img-paste
+15 error Windows_NT 10.0.14393
+16 error argv "C:\\Users\\EcadiaThinkpad\\AppData\\Local\\atom\\app-1.15.0\\resources\\app\\apm\\bin\\node.exe" "C:\\Users\\EcadiaThinkpad\\AppData\\Local\\atom\\app-1.15.0\\resources\\app\\apm\\node_modules\\npm\\bin\\npm-cli.js" "version" "minor" "-m" "Prepare %s release"
+17 error node v4.4.5
+18 error npm  v3.10.5
+19 error code 128
+20 error Command failed: git -c core.longpaths=true tag v0.2.0 -am Prepare 0.2.0 release
+20 error fatal: tag 'v0.2.0' already exists
+21 error If you need help, you may report this error at:
+21 error     <https://github.com/npm/npm/issues>
+22 verbose exit [ 1, true ]
