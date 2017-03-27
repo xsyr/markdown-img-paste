@@ -12,14 +12,10 @@
   "activationCommands": {
     "atom-workspace": "markdown-img-paste:paste"
   },
-  "repository": "https://github.com/cocoakekeyu/markdown-img-paste",
+  "repository": "https://github.com/nmecad/markdown-img-paste.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
-  },
-  "dependencies": {
-    "qiniu": "^6.1.11",
-    "request": "^2.55.0"
   },
   "configSchema": {
     "only_markdown": {

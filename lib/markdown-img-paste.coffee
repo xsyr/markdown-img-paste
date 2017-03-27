@@ -17,7 +17,7 @@ module.exports =
 
     paste : ->
         if !cursor = atom.workspace.getActiveTextEditor() then return
-        #只在markdown中使用
+        #only markdown
         if atom.config.get 'markdown-img-paste.only_markdown'
             if !grammar = cursor.getGrammar() then return
 
@@ -29,13 +29,20 @@ module.exports =
             else
                 if grammar.scopeName != 'source.gfm' then return
 
+
+
+        #In case text gets posted into the file Atom should behave nromal
+        text = clipboard.readText()
+        if(text)
+          editor = atom.workspace.getActiveTextEditor()
+          editor.insertText(text)
+          return
         img = clipboard.readImage()
         if img.isEmpty() then return
 
         editor = atom.workspace.getActiveTextEditor()
         words = editor.lineTextForBufferRow(editor.getCursorBufferPosition().row)
         editor.deleteLine()
-        editor.insertText("\r\n")
 
 
         #Sets filename based on Name written in the line the cursor was in
@@ -61,14 +68,16 @@ module.exports =
 
         fs.writeFileSync fullname, img.toPng()
 
-        mdtext = '![' + words.trim() + ']('
+        mdtext = '![' + words + ']('
 
         if atom.config.get 'markdown-img-paste.use_assets_folder'
             mdtext += 'assets/'
 
         mdtext += filename + ')'
+        mdtext += "\r\n"
 
         paste_mdtext cursor, mdtext
+
 
 #辅助函数
 delete_file = (file_path) ->
@@ -81,6 +90,7 @@ paste_mdtext = (cursor, mdtext) ->
     position = cursor.getCursorBufferPosition()
     position.column = position.column - mdtext.length + 2
     cursor.setCursorBufferPosition position
+
 
 
 Date.prototype.format = ->
