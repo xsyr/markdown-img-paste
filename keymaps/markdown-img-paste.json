@@ -1,5 +1,5 @@
 {
   "atom-workspace": {
-    "ctrl-shift-v": "markdown-img-paste:paste"
+    "ctrl-v": "markdown-img-paste:paste"
   }
 }

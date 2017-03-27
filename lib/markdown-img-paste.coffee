@@ -35,11 +35,12 @@ module.exports =
         editor = atom.workspace.getActiveTextEditor()
         words = editor.lineTextForBufferRow(editor.getCursorBufferPosition().row)
         editor.deleteLine()
-        editor.insertText("\n")
+        editor.insertText("\r\n")
 
 
         #Sets filename based on Name written in the line the cursor was in
         filename = words +  ".png"
+        filename = filename.replace(/\s/g, "");
 
         #Sets up image assets folder
         curDirectory = dirname(cursor.getPath())
@@ -60,91 +61,14 @@ module.exports =
 
         fs.writeFileSync fullname, img.toPng()
 
-        #上传至sm.ms
-        if atom.config.get 'markdown-img-paste.upload_to_mssm'
-            request = require 'request'
+        mdtext = '![' + words.trim() + ']('
 
-            options =
-                uri: 'https://sm.ms/api/upload'
-                formData:
-                    smfile: fs.createReadStream fullname
+        if atom.config.get 'markdown-img-paste.use_assets_folder'
+            mdtext += 'assets/'
 
-            request.post options, (err, response, body) ->
-                if err
-                    atom.notifications.addError 'Upload failed:' + err
-                else
-                    body = JSON.parse body
-                    if body.code == 'error'
-                        atom.notifications.addError 'Upload failed:' + body.msg
-                    else
-                        atom.notifications.addSuccess 'OK, image upload to sm.ms!'
-                        mdtext = '![](' + body.data.url + ')'
-                        paste_mdtext cursor, mdtext
+        mdtext += filename + ')'
 
-            delete_file(fullname)
-
-            #完成
-            return
-
-
-        #保存在本地
-        if !atom.config.get('markdown-img-paste.upload_to_qiniu')
-            mdtext = '![' + filename + ']('
-
-            if atom.config.get 'markdown-img-paste.use_assets_folder'
-                mdtext += 'assets/'
-
-            mdtext += filename + ')'
-
-            paste_mdtext cursor, mdtext
-
-        #使用七牛存储图片
-        else
-            qiniu = require 'qiniu'
-
-            qiniu.conf.ACCESS_KEY = atom.config.get 'markdown-img-paste.zAccessKey'
-            qiniu.conf.SECRET_KEY = atom.config.get 'markdown-img-paste.zSecretKey'
-
-            #要上传的空间
-            bucket = atom.config.get 'markdown-img-paste.zbucket'
-
-            #七牛空间域名
-            domain = atom.config.get 'markdown-img-paste.zdomain'
-
-            #上传到七牛后保存的文件名
-            key = filename
-
-            #构建上传策略函数
-            uptoken = (bucket, key) ->
-                putPolicy = new qiniu.rs.PutPolicy(bucket+":"+key)
-                putPolicy.token()
-
-            #生成上传 Token
-            token = uptoken bucket, key
-
-            #要上传文件的本地路径
-            filePath = fullname
-
-            #构造上传函数
-            uploadFile = (uptoken, key, localFile) ->
-                extra = new qiniu.io.PutExtra()
-                qiniu.io.putFile uptoken, key, localFile, extra, (err, ret) ->
-                    if !err
-                        #上传成功， 处理返回值
-                        #console.log(ret.hash, ret.key, ret.persistentId);
-                        atom.notifications.addSuccess 'OK, image upload to qiniu!'
-
-                        pastepath =  domain + '/' +  filename
-                        mdtext = '![' + filename + '](' + pastepath + ')'
-                        paste_mdtext cursor, mdtext
-                    else
-                        #上传失败， 处理返回代码
-                        atom.notifications.addError 'Upload Failed:' + err
-
-            #调用uploadFile上传
-            uploadFile token, key, filePath
-
-            delete_file fullname
+        paste_mdtext cursor, mdtext
 
 #辅助函数
 delete_file = (file_path) ->
