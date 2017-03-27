@@ -1,7 +1,7 @@
 {
   "name": "markdown-img-paste",
   "main": "./lib/markdown-img-paste",
-  "version": "0.3.5",
+  "version": "0.3.8",
   "description": "Just use 'ctrl+shfit+v' paste image into markdown",
   "keywords": [
     "markdown",
@@ -18,7 +18,7 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "dependencies": {
-    "qiniu": "^6.1.11",
+    "qiniu": "=6.1.11",
     "request": "^2.55.0"
   },
   "configSchema": {
@@ -69,6 +69,12 @@
       "default": "http://",
       "title": "Domain",
       "description": ""
+    },
+    "zuphost": {
+      "type": "string",
+      "default": "http://upload.qiniu.com",
+      "title": "Uphost",
+      "description": "七牛云上传服务器域名，上传出错时可能是上传的区域服务器域名不对。默认不用设置。"
     }
   }
 }

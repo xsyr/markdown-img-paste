@@ -120,6 +120,11 @@ module.exports =
             #要上传文件的本地路径
             filePath = fullname
 
+            #设置上传服务器域名
+            uphost = atom.config.get 'markdown-img-paste.zuphost'
+            if uphost
+                qiniu.conf.UP_HOST = uphost
+
             #构造上传函数
             uploadFile = (uptoken, key, localFile) ->
                 extra = new qiniu.io.PutExtra()
@@ -134,7 +139,8 @@ module.exports =
                         paste_mdtext cursor, mdtext
                     else
                         #上传失败， 处理返回代码
-                        atom.notifications.addError 'Upload Failed:' + err
+                        atom.notifications.addError 'Upload Failed:' + err.error
+                        console.log(err);
 
             #调用uploadFile上传
             uploadFile token, key, filePath
