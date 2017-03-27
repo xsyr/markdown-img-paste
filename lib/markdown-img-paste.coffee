@@ -89,7 +89,7 @@ module.exports =
 
         #保存在本地
         if !atom.config.get('markdown-img-paste.upload_to_qiniu')
-            mdtext = '![+' filename '+]('
+            mdtext = '![' + filename + ']('
 
             if atom.config.get 'markdown-img-paste.use_assets_folder'
                 mdtext += 'assets/'
