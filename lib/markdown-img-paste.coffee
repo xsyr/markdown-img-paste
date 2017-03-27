@@ -32,9 +32,14 @@ module.exports =
         img = clipboard.readImage()
         if img.isEmpty() then return
 
-        #Sets filename based on datetime
-        filename = "markdown-img-paste-#{new Date().format()}.png"
+        editor = atom.workspace.getActiveTextEditor()
+        words = editor.lineTextForBufferRow(editor.getCursorBufferPosition().row)
+        editor.deleteLine()
+        editor.insertText("\n")
 
+
+        #Sets filename based on Name written in the line the cursor was in
+        filename = words +  ".png"
 
         #Sets up image assets folder
         curDirectory = dirname(cursor.getPath())
@@ -84,7 +89,7 @@ module.exports =
 
         #保存在本地
         if !atom.config.get('markdown-img-paste.upload_to_qiniu')
-            mdtext = '![]('
+            mdtext = '![+' filename '+]('
 
             if atom.config.get 'markdown-img-paste.use_assets_folder'
                 mdtext += 'assets/'
@@ -120,11 +125,6 @@ module.exports =
             #要上传文件的本地路径
             filePath = fullname
 
-            #设置上传服务器域名
-            uphost = atom.config.get 'markdown-img-paste.zuphost'
-            if uphost
-                qiniu.conf.UP_HOST = uphost
-
             #构造上传函数
             uploadFile = (uptoken, key, localFile) ->
                 extra = new qiniu.io.PutExtra()
@@ -135,12 +135,11 @@ module.exports =
                         atom.notifications.addSuccess 'OK, image upload to qiniu!'
 
                         pastepath =  domain + '/' +  filename
-                        mdtext = '![](' + pastepath + ')'
+                        mdtext = '![' + filename + '](' + pastepath + ')'
                         paste_mdtext cursor, mdtext
                     else
                         #上传失败， 处理返回代码
-                        atom.notifications.addError 'Upload Failed:' + err.error
-                        console.log(err);
+                        atom.notifications.addError 'Upload Failed:' + err
 
             #调用uploadFile上传
             uploadFile token, key, filePath
