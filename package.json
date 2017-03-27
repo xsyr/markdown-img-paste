@@ -1,7 +1,7 @@
 {
-  "name": "markdown-img-paste",
+  "name": "markdown-image-paste",
   "main": "./lib/markdown-img-paste",
-  "version": "0.3.8",
+  "version": "0.0.0",
   "description": "Just use 'ctrl+shfit+v' paste image into markdown",
   "keywords": [
     "markdown",
@@ -12,7 +12,7 @@
   "activationCommands": {
     "atom-workspace": "markdown-img-paste:paste"
   },
-  "repository": "https://github.com/cocoakekeyu/markdown-img-paste",
+  "repository": "https://github.com/nmecad/markdown-img-paste.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
@@ -30,7 +30,7 @@
     },
     "use_assets_folder": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "title": "Save images in assets folder",
       "description": ""
     },
