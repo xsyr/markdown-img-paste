@@ -1,7 +1,7 @@
 {
   "name": "markdown-image-paste",
   "main": "./lib/markdown-img-paste",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Just use 'ctrl+shfit+v' paste image into markdown",
   "keywords": [
     "markdown",
