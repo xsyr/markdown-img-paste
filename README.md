@@ -6,6 +6,8 @@
 2. hit `ctrl+shft+v` to paste image into markdown
 
 By default, the image will store in current directory. But you can change like this:
+DAS HIER IST DER TEST
+
 ![](http://7xpcbe.com1.z0.glb.clouddn.com/markdown-img-paste.gif)
 
 ## Setting
