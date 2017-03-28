@@ -1,8 +1,7 @@
 # Markdown-img-paste
 
 ## Usage
-
-1. take a screenshot or copy a image
+Der Test1. take a screenshot or copy a image
 2. Go to a new (empty) line
 2. Write the filename you want the image saved under into that empty line
 3. hit `ctrl+v` to paste image into markdown

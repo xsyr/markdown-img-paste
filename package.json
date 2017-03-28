@@ -2,7 +2,7 @@
   "name": "markdown-image-paste",
   "main": "./lib/markdown-img-paste",
   "version": "2.0.1",
-  "description": "Just use 'ctrl+shfit+v' paste image into markdown",
+  "description": "Just use 'ctrl+v' paste image into markdown",
   "keywords": [
     "markdown",
     "md",
@@ -24,10 +24,16 @@
       "title": "Only enable the Key-Combo in Markdown files",
       "description": ""
     },
-    "use_assets_folder": {
+    "use_subfolder": {
       "type": "boolean",
-      "default": true,
+      "default": false,
       "title": "Save images in assets folder",
+      "description": ""
+    },
+    "subfolder": {
+      "type": "string",
+      "default": "",
+      "title": "Subfolder  for the images",
       "description": ""
     }
   }

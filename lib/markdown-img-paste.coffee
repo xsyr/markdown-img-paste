@@ -49,32 +49,35 @@ module.exports =
         filename = words +  ".png"
         filename = filename.replace(/\s/g, "");
 
-        #Sets up image assets folder
+        #Sets up image subfolder
         curDirectory = dirname(cursor.getPath())
         fullname = join(curDirectory, filename)
 
-        #Checks if assets folder is to be used
-        if atom.config.get 'markdown-img-paste.use_assets_folder'
+
+
+
+        mdtext = ""
+        mdtext += '![' + words + ']('
+
+        if atom.config.get 'markdown-image-paste.use_subfolder'
           #Finds assets directory path
-          assetsDirectory = join(curDirectory, "assets") + "/"
+          subFolderToUse = ""
+          subFolderToUse = atom.config.get 'markdown-image-paste.subfolder'
+          if subFolderToUse != ""
+            assetsDirectory = join(curDirectory, subFolderToUse)
 
-          #Creates directory if necessary
-          if !fs.existsSync assetsDirectory
-            fs.mkdirSync assetsDirectory
+            #Creates directory if necessary
+            if !fs.existsSync assetsDirectory
+              fs.mkdirSync assetsDirectory
 
 
-          #Sets full img path
-          fullname = join(assetsDirectory, filename)
+            #Sets full img path
+            fullname = join(assetsDirectory, filename)
 
-        fs.writeFileSync fullname, img.toPng()
 
-        mdtext = '![' + words + ']('
-
-        if atom.config.get 'markdown-img-paste.use_assets_folder'
-            mdtext += 'assets/'
-
-        mdtext += filename + ')'
+        mdtext += join(subFolderToUse, filename) + ') '
         mdtext += "\r\n"
+        fs.writeFileSync fullname, img.toPng()
 
         paste_mdtext cursor, mdtext
 
@@ -88,9 +91,9 @@ delete_file = (file_path) ->
 paste_mdtext = (cursor, mdtext) ->
     cursor.insertText mdtext
     position = cursor.getCursorBufferPosition()
-    position.column = position.column - mdtext.length + 2
+    position.row = position.row - 1
+    position.column = position.column + mdtext.length + 1
     cursor.setCursorBufferPosition position
-
 
 
 Date.prototype.format = ->
