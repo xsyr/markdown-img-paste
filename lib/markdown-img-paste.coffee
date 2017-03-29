@@ -17,6 +17,12 @@ module.exports =
 
     paste : ->
         if !cursor = atom.workspace.getActiveTextEditor() then return
+        #In case text gets posted into the file Atom should behave nromal
+        text = clipboard.readText()
+        if(text)
+          editor = atom.workspace.getActiveTextEditor()
+          editor.insertText(text)
+          return
         fileFormat = ""
         if !grammar = cursor.getGrammar() then return
         if cursor.getPath()
@@ -46,12 +52,7 @@ module.exports =
 
 
 
-        #In case text gets posted into the file Atom should behave nromal
-        text = clipboard.readText()
-        if(text)
-          editor = atom.workspace.getActiveTextEditor()
-          editor.insertText(text)
-          return
+
         img = clipboard.readImage()
         if img.isEmpty() then return
 
