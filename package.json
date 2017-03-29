@@ -27,7 +27,7 @@
     "use_subfolder": {
       "type": "boolean",
       "default": false,
-      "title": "Save images in assets folder",
+      "title": "Save images in subfolder",
       "description": ""
     },
     "subfolder": {
