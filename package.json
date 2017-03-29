@@ -24,6 +24,18 @@
       "title": "Only enable the Key-Combo in Markdown files",
       "description": ""
     },
+    "only_rst": {
+      "type": "boolean",
+      "default": true,
+      "title": "Only enable the Key-Combo in RST files",
+      "description": ""
+    },
+    "only_markdown_and_rst": {
+      "type": "boolean",
+      "default": true,
+      "title": "Only enable the Key-Combo in Markdown and RST files",
+      "description": ""
+    },
     "use_subfolder": {
       "type": "boolean",
       "default": false,

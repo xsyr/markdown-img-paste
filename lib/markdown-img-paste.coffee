@@ -17,17 +17,32 @@ module.exports =
 
     paste : ->
         if !cursor = atom.workspace.getActiveTextEditor() then return
-        #only markdown
-        if atom.config.get 'markdown-img-paste.only_markdown'
-            if !grammar = cursor.getGrammar() then return
+        fileFormat = ""
+        if !grammar = cursor.getGrammar() then return
+        if cursor.getPath()
+            if  cursor.getPath().substr(-3) == '.md' or
+                cursor.getPath().substr(-9) == '.markdown' and
+                grammar.scopeName != 'source.gfm'
+                    fileFormat = "md"
+            else if cursor.getPath().substr(-4) == '.rst' and
+                grammar.scopeName != 'source.gfm'
+                    fileFormat = "rst"
+        else
+            if grammar.scopeName != 'source.gfm' then return
 
-            if cursor.getPath()
-                if  cursor.getPath().substr(-3) != '.md' and
-                    cursor.getPath().substr(-9) != '.markdown' and
-                    grammar.scopeName != 'source.gfm'
-                        return
-            else
-                if grammar.scopeName != 'source.gfm' then return
+        if atom.config.get 'markdown-image-paste.only_markdown_and_rst'
+            if fileFormat != "md" and
+               fileFormat != "rst"
+                 return
+        else
+            #only markdown
+            if atom.config.get 'markdown-image-paste.only_markdown'
+                if fileFormat != "md" then return
+            #only rst
+            if atom.config.get 'markdown-image-paste.only_rst'
+                if fileFormat != "rst" then return
+
+
 
 
 
