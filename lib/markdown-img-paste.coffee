@@ -72,8 +72,7 @@ module.exports =
 
 
 
-        mdtext = ""
-        mdtext += '![' + words + ']('
+
 
         if atom.config.get 'markdown-image-paste.use_subfolder'
           #Finds assets directory path
@@ -90,12 +89,19 @@ module.exports =
             #Sets full img path
             fullname = join(assetsDirectory, filename)
 
-
-        mdtext += join(subFolderToUse, filename) + ') '
-        mdtext += "\r\n"
+        text = ""
+        if(fileFormat == "md")
+          text += '![' + words + ']('
+          text += join(subFolderToUse, filename) + ') '
+        else if (fileFormat == "rst")
+          #text += '![' + words + ']('
+          text += ".. figure:: "
+          text += join(subFolderToUse, filename) + ') \r\n'
+          text += "\t :alt: " + words
+        text += "\r\n"
         fs.writeFileSync fullname, img.toPng()
 
-        paste_mdtext cursor, mdtext
+        paste_text cursor, text
 
 
 #辅助函数
@@ -104,11 +110,11 @@ delete_file = (file_path) ->
         if err
             console.log '未删除本地文件:'+ fullname
 
-paste_mdtext = (cursor, mdtext) ->
-    cursor.insertText mdtext
+paste_text = (cursor, text) ->
+    cursor.insertText text
     position = cursor.getCursorBufferPosition()
     position.row = position.row - 1
-    position.column = position.column + mdtext.length + 1
+    position.column = position.column + text.length + 1
     cursor.setCursorBufferPosition position
 
 
