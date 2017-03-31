@@ -60,6 +60,7 @@ module.exports =
           ignoreMul = false
           if atom.config.get 'markdown-image-paste.ignoreMulUperCase'
             ignoreMul = true
+            atom.config.set("markdown-image-paste.automaticCamelCase", true)
           if atom.config.get 'markdown-image-paste.automaticCamelCase'
             for word in singleWords
               if(ignoreMul && (word.charAt(1).toUpperCase() == word.charAt(1)))

@@ -18,17 +18,19 @@
     "atom": ">=1.0.0 <2.0.0"
   },
   "configSchema": {
-    "use_subfolder": {
-      "type": "boolean",
-      "default": false,
-      "title": "Save images in subfolder",
-      "description": ""
-    },
-    "subfolder": {
-      "type": "string",
-      "default": "",
-      "title": "Subfolder  for the images",
-      "description": ""
+    "test":{
+      "use_subfolder": {
+        "type": "boolean",
+        "default": false,
+        "title": "Save images in subfolder",
+        "description": ""
+      },
+      "subfolder": {
+        "type": "string",
+        "default": "",
+        "title": "Subfolder  for the images",
+        "description": ""
+      }
     },
     "firstLetterLowerCase": {
       "type": "boolean",
