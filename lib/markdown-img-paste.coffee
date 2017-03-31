@@ -57,9 +57,15 @@ module.exports =
 
           singleWords = words.split(" ")
           filename = ""
+          ignoreMul = false
+          if atom.config.get 'markdown-image-paste.ignoreMulUperCase'
+            ignoreMul = true
           if atom.config.get 'markdown-image-paste.automaticCamelCase'
             for word in singleWords
-              filename +=  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+              if(ignoreMul && (word.charAt(1).toUpperCase() == word.charAt(1)))
+                filename +=  word.charAt(0).toUpperCase() + word.slice(1);
+              else
+                filename +=  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
 
           if atom.config.get 'markdown-image-paste.firstLetterLowerCase'
             filename =  filename.charAt(0).toLowerCase() + filename.slice(1);
