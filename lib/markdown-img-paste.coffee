@@ -53,8 +53,18 @@ module.exports =
           # We delete anything in the current line
           editor.deleteLine()
 
+
+
+          singleWords = words.split(" ")
+          filename = ""
+          if atom.config.get 'markdown-image-paste.automaticCamelCase'
+            for word in singleWords
+              filename +=  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+
+          if atom.config.get 'markdown-image-paste.firstLetterLowerCase'
+            filename =  filename.charAt(0).toLowerCase() + filename.slice(1);
           #Sets filename based on text written in the line the cursor was in
-          filename = words +  ".png"
+          filename += ".png"
           #We dont want spaces in our filename. Special charackters are not considered yet
           filename = filename.replace(/\s/g, "");
 
@@ -108,6 +118,12 @@ delete_file = (file_path) ->
     fs.unlink file_path, (err) ->
         if err
             console.log 'Deleted'+ fullname
+
+
+
+#Makes the first letter of the word big
+makeBig = (word) ->
+
 # Pastes the link into the file
 paste_text = (cursor, text) ->
     cursor.insertText text
