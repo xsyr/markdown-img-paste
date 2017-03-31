@@ -1,7 +1,7 @@
 {
   "name": "markdown-image-paste",
   "main": "./lib/markdown-img-paste",
-  "version": "2.4.0",
+  "version": "2.5.0",
   "description": "Just use 'ctrl+v' paste image into markdown",
   "keywords": [
     "markdown",
@@ -48,6 +48,5 @@
       "title": "Make the filename automatically to Camelcase. First letter will depend on the other setting",
       "description": ""
     }
-
   }
 }
