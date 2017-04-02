@@ -8,9 +8,25 @@ module.exports =
     subscriptions : null
 
     activate : ->
-        @subscriptions = new CompositeDisposable
-        @subscriptions.add atom.commands.add 'atom-workspace',
+      atom.config.observe 'markdown-image-paste.imgFolder', (value) ->
+          if(value)
+            atom.config.set('markdown-image-paste.subfolder', 'images')
+            atom.config.set('markdown-image-paste.use_subfolder', true)
+            atom.config.set('markdown-image-paste.imgFolderEqFile', false)
+      atom.config.observe 'markdown-image-paste.imgFolderEqFile', (value) ->
+          if(value)
+            relativeToFile = true;
+            atom.config.set('markdown-image-paste.use_subfolder', true)
+            atom.config.set('markdown-image-paste.imgFolder', false)
+      atom.config.observe 'markdown-image-paste.use_subfolder', (value) ->
+        if!(value)
+          atom.config.set('markdown-image-paste.imgFolder', 'false')
+          atom.config.set('markdown-image-paste.imgFolderEqFile', false)
+      @subscriptions = new CompositeDisposable
+      @subscriptions.add atom.commands.add 'atom-workspace',
             'markdown-img-paste:paste' : => @paste()
+
+
 
     deactivate : ->
         @subscriptions.dispose()
@@ -43,6 +59,8 @@ module.exports =
           else
               if grammar.scopeName != 'source.gfm' then return
 
+
+
           img = clipboard.readImage()
           # If the image is empty there is obviously nothing we could add anyways
           if img.isEmpty() then return
@@ -53,7 +71,11 @@ module.exports =
           # We delete anything in the current line
           editor.deleteLine()
 
-
+          if fileFormat != ""
+            textFileName = editor.getTitle()
+            if textFileName != undefined || textFileName != ""
+              textFileName = textFileName.split(".")
+              atom.config.set('markdown-image-paste.subfolder', join('images', textFileName[0]))
 
           singleWords = words.split(" ")
           filename = ""
@@ -80,9 +102,10 @@ module.exports =
           # Join adds a platform independent directory separator
           fullname = join(curDirectory, filename)
 
+          subFolderToUse = ""
           if atom.config.get 'markdown-image-paste.use_subfolder'
             #Finds  directory path
-            subFolderToUse = ""
+
             subFolderToUse = atom.config.get 'markdown-image-paste.subfolder'
             if subFolderToUse != ""
               assetsDirectory = join(curDirectory, subFolderToUse)
@@ -138,3 +161,5 @@ paste_text = (cursor, text) ->
     position.row = position.row - 1
     position.column = position.column + text.length + 1
     cursor.setCursorBufferPosition position
+
+# Reacting to changes in the settings

@@ -9,46 +9,61 @@
     "image",
     "paste"
   ],
-  "activationCommands": {
-    "atom-workspace": "markdown-img-paste:paste"
-  },
+
   "repository": "https://github.com/nmecad/markdown-img-paste.git",
   "license": "MIT",
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
   "configSchema": {
-    "test":{
-      "use_subfolder": {
-        "type": "boolean",
-        "default": false,
-        "title": "Save images in subfolder",
-        "description": ""
-      },
-      "subfolder": {
-        "type": "string",
-        "default": "",
-        "title": "Subfolder  for the images",
-        "description": ""
-      }
+    "use_subfolder": {
+      "type": "boolean",
+      "default": false,
+      "title": "Save images in subfolder",
+      "description": "If checked the images will be saved in a subfolder. You can either set your own folder or choose from the presets",
+      "order" : 10
+    },
+    "subfolder": {
+      "type": "string",
+      "default": "",
+      "title": "Subfolder  for the images",
+      "description": "",
+      "order" : 20
+    },
+    "imgFolderEqFile": {
+      "type": "boolean",
+      "default": false,
+      "title": "Automatic folder `images/filename`",
+      "description": "Preset to save the images in a subfolder called `images/filename`, where `filename` is the Name of the md or rst file the picture got pasted into",
+      "order" : 40
+    },
+    "imgFolder": {
+      "type": "boolean",
+      "default": false,
+      "title": "Automatic folder `images`",
+      "description": "Preset to save the images in a subfolder called `images`",
+      "order" : 30
     },
     "firstLetterLowerCase": {
       "type": "boolean",
       "default": true,
-      "title": "Make the first letter of the filename automatically small",
-      "description": ""
+      "title": "First letter",
+      "description": "If checked the first letter of the filename will always be lowercase",
+      "order" : 120
     },
     "ignoreMulUperCase": {
       "type": "boolean",
       "default": true,
-      "title": "If this is checked words where the second letter is uppercase won't be made lowercase",
-      "description": ""
+      "title": "Multiple upper Case",
+      "description": "If checked words where the second letter is uppercase won't be put in the normal camelCase. This means all letters being Uppercase will stay that way if the second letter is Uppercase",
+      "order" : 110
     },
-    "automaticCamelCase": {
+        "automaticCamelCase": {
       "type": "boolean",
       "default": true,
-      "title": "Make the filename automatically to Camelcase. First letter will depend on the other setting",
-      "description": ""
+      "title": "Automatic camelCase",
+      "description": "The name of the imagefile will automatically be put into to camelCase. The first letter afert a space will be written in uppercas. The first letter of the filename will depend on the setting `First Letter`",
+      "order" : 100
     }
 
   }
