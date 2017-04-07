@@ -29,20 +29,6 @@
       "description": "",
       "order": 20
     },
-    "imgFolderEqFile": {
-      "type": "boolean",
-      "default": false,
-      "title": "Automatic folder `images/filename`",
-      "description": "Preset to save the images in a subfolder called `images/filename`, where `filename` is the Name of the md or rst file the picture got pasted into",
-      "order": 40
-    },
-    "imgFolder": {
-      "type": "boolean",
-      "default": false,
-      "title": "Automatic folder `images`",
-      "description": "Preset to save the images in a subfolder called `images`",
-      "order": 30
-    },
     "firstLetterLowerCase": {
       "type": "boolean",
       "default": true,

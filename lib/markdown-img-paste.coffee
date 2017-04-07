@@ -8,20 +8,6 @@ module.exports =
     subscriptions : null
 
     activate : ->
-      atom.config.observe 'markdown-image-paste.imgFolder', (value) ->
-          if(value)
-            atom.config.set('markdown-image-paste.subfolder', 'images')
-            atom.config.set('markdown-image-paste.use_subfolder', true)
-            atom.config.set('markdown-image-paste.imgFolderEqFile', false)
-      atom.config.observe 'markdown-image-paste.imgFolderEqFile', (value) ->
-          if(value)
-            relativeToFile = true;
-            atom.config.set('markdown-image-paste.use_subfolder', true)
-            atom.config.set('markdown-image-paste.imgFolder', false)
-      atom.config.observe 'markdown-image-paste.use_subfolder', (value) ->
-        if!(value)
-          atom.config.set('markdown-image-paste.imgFolder', 'false')
-          atom.config.set('markdown-image-paste.imgFolderEqFile', false)
       @subscriptions = new CompositeDisposable
       @subscriptions.add atom.commands.add 'atom-workspace',
             'markdown-img-paste:paste' : => @paste()
@@ -70,12 +56,6 @@ module.exports =
           words = editor.lineTextForBufferRow(editor.getCursorBufferPosition().row)
           # We delete anything in the current line
           editor.deleteLine()
-
-          if fileFormat != ""
-            textFileName = editor.getTitle()
-            if textFileName != undefined || textFileName != ""
-              textFileName = textFileName.split(".")
-              atom.config.set('markdown-image-paste.subfolder', join('images', textFileName[0]))
 
           singleWords = words.split(" ")
           filename = ""
@@ -128,7 +108,7 @@ module.exports =
           # Imagelink for rst files. will also have an alt text
           else if (fileFormat == "rst")
             text += ".. figure:: "
-            text += join(subFolderToUse, filename) + ') \r\n'
+            text += join(subFolderToUse, filename) + '\r\n'
             text += "\t :alt: " + words
           # We need this emmptyline so that the following line is separated
           text += "\r\n"
