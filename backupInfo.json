@@ -1,0 +1,65 @@
+{
+  /*"name": "markdown-image-paste",
+  "main": "./lib/markdown-img-paste",
+  "version": "2.4.0",
+  "description": "Just use 'ctrl+v' paste image into markdown",
+  "keywords": [
+    "markdown",
+    "md",
+    "image",
+    "paste"*/
+  ],
+  "activationCommands": {
+    "atom-workspace": "markdown-img-paste:paste"
+  },
+  "repository": "https://github.com/nmecad/markdown-img-paste.git",
+  "license": "MIT",
+  "engines": {
+    "atom": ">=1.0.0 <2.0.0"
+  },
+  "configSchema": {
+      "use_subfolder": {
+        "type": "boolean",
+        "default": false,
+        "title": "Save images in subfolder",
+        "description": "A Test description"
+      },
+      "subfolder": {
+        "type": "string",
+        "default": "",
+        "title": "Subfolder  for the images",
+        "description": ""
+      },
+    "imgFolderEqFile": {
+      "type": "boolean",
+      "default": false,
+      "title": "Save the images like this images/filename/filename.png",
+      "description": ""
+    },
+    "imgFolder": {
+      "type": "boolean",
+      "default": false,
+      "title": "Save the images in a Folder called images",
+      "description": ""
+    },
+    "firstLetterLowerCase": {
+      "type": "boolean",
+      "default": true,
+      "title": "Make the first letter of the filename automatically small",
+      "description": ""
+    },
+    "ignoreMulUperCase": {
+      "type": "boolean",
+      "default": true,
+      "title": "If this is checked words where the second letter is uppercase won't be made lowercase",
+      "description": ""
+    },
+    "automaticCamelCase": {
+      "type": "boolean",
+      "default": true,
+      "title": "Make the filename automatically to Camelcase. First letter will depend on the other setting",
+      "description": ""
+    }
+
+  }
+}

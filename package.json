@@ -29,17 +29,17 @@
       "description": "",
       "order": 20
     },
-    "firstLetterLowerCase": {
+    "allLettersLowerCase": {
       "type": "boolean",
       "default": true,
-      "title": "First letter",
+      "title": "All Letters lowercase",
       "description": "If checked the first letter of the filename will always be lowercase",
       "order": 120
     },
-    "ignoreMulUperCase": {
+    "spacesToUnderlines": {
       "type": "boolean",
       "default": true,
-      "title": "Multiple upper Case",
+      "title": "Spaces to underline",
       "description": "If checked words where the second letter is uppercase won't be put in the normal camelCase. This means all letters being Uppercase will stay that way if the second letter is Uppercase",
       "order": 110
     },

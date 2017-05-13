@@ -12,8 +12,6 @@ module.exports =
       @subscriptions.add atom.commands.add 'atom-workspace',
             'markdown-img-paste:paste' : => @paste()
 
-
-
     deactivate : ->
         @subscriptions.dispose()
 
@@ -25,8 +23,8 @@ module.exports =
           text = clipboard.readText()
           # if the user copied text we don't care about different formats.
           # just let him do it
+          editor = atom.workspace.getActiveTextEditor()
           if(text)
-            editor = atom.workspace.getActiveTextEditor()
             editor.insertText(text)
             return
 
@@ -51,7 +49,6 @@ module.exports =
           # If the image is empty there is obviously nothing we could add anyways
           if img.isEmpty() then return
 
-          editor = atom.workspace.getActiveTextEditor()
           # Words equals the text in the current line of the cursor
           words = editor.lineTextForBufferRow(editor.getCursorBufferPosition().row)
           # We delete anything in the current line
@@ -59,19 +56,28 @@ module.exports =
 
           singleWords = words.split(" ")
           filename = ""
-          ignoreMul = false
-          if atom.config.get 'markdown-image-paste.ignoreMulUperCase'
-            ignoreMul = true
-            atom.config.set("markdown-image-paste.automaticCamelCase", true)
-          if atom.config.get 'markdown-image-paste.automaticCamelCase'
-            for word in singleWords
-              if(ignoreMul && (word.charAt(1).toUpperCase() == word.charAt(1)))
-                filename +=  word.charAt(0).toUpperCase() + word.slice(1);
-              else
-                filename +=  word.charAt(0).toUpperCase() + word.slice(1).toLowerCase();
+          underlines = false
+          allLower = false
+          if atom.config.get 'markdown-image-paste.spacesToUnderlines'
+            underlines = true
 
-          if atom.config.get 'markdown-image-paste.firstLetterLowerCase'
-            filename =  filename.charAt(0).toLowerCase() + filename.slice(1);
+          if atom.config.get 'markdown-image-paste.allLettersLowerCase'
+            allLower = true
+
+          for word in singleWords
+            if(allLower)
+              filename +=  word.toLowerCase();
+            else
+              filename += word;
+            if(underlines)
+              filename +=  "_"
+
+          #Delete the last `_`
+          if(underlines)
+            if(filename.endsWith("_"))
+              filename = filename.substring(0, filename.lastIndexOf("_"))
+
+
           #Sets filename based on text written in the line the cursor was in
           filename += ".png"
           #We dont want spaces in our filename. Special charackters are not considered yet
@@ -109,7 +115,8 @@ module.exports =
           else if (fileFormat == "rst")
             text += ".. figure:: "
             text += join(subFolderToUse, filename) + '\r\n'
-            text += "\t :alt: " + words
+            text += "\t:alt: " + words + "\n\n"
+            text += "\t" + words
           # We need this emmptyline so that the following line is separated
           text += "\r\n"
           #Creates the actual image on the fileSystem
