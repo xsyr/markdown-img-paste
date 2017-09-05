@@ -89,7 +89,27 @@ module.exports =
           fullname = join(curDirectory, filename)
 
           subFolderToUse = ""
-          if atom.config.get 'markdown-image-paste.use_subfolder'
+
+          jekyllRootDir = ""
+          if atom.config.get 'markdown-image-paste.enableJekyllSupport'
+             jekyllImageDir = atom.config.get 'markdown-image-paste.jekyllImageDir'
+             if jekyllImageDir == ""
+               paste_text "jekyllImageDir must be configured.\n"
+               return
+
+            configDir = curDirectory
+            while true
+              if fs.existsSync join(configDir, "_config.yml")
+                jekyllRootDir = configDir
+                break
+              configDir = join(configDir, "..")
+              if configDir == "/"
+                break
+
+            fullname = join(jekyllRootDir, jekyllImageDir, filename)
+            subFolderToUse = jekyllImageDir
+
+          if jekyllRootDir == "" and atom.config.get 'markdown-image-paste.use_subfolder'
             #Finds  directory path
 
             subFolderToUse = atom.config.get 'markdown-image-paste.subfolder'

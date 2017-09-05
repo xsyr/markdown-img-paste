@@ -50,19 +50,24 @@
       "description": "The name of the imagefile will automatically be put into to camelCase. The first letter afert a space will be written in uppercas. The first letter of the filename will depend on the setting `First Letter`",
       "order": 100
     },
-    "support_jekyll": {
+    "enableJekyllSupport": {
       "type": "boolean",
       "default": false,
-      "title": "support jekyll, save img to jekyll image folder",
+      "title": "Enable jekyll support, save img to jekyllImageDir",
       "description": "Find jekyll site root dir by searching _config.yaml file.",
       "order": 130
     },
-    "jekyll_image_dir": {
+    "jekyllImageDir": {
       "type": "string",
       "default": "",
-      "title": "jekyll image folder",
+      "title": "Jekyll image folder",
       "description": "",
       "order": 140
     }
+  },
+  "apmInstallSource": {
+    "type": "git",
+    "source": "xsyr/markdown-img-paste",
+    "sha": "3c7798f6a911ef06103382c366398623dbb6d02e"
   }
 }
