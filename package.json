@@ -49,6 +49,20 @@
       "title": "Automatic camelCase",
       "description": "The name of the imagefile will automatically be put into to camelCase. The first letter afert a space will be written in uppercas. The first letter of the filename will depend on the setting `First Letter`",
       "order": 100
+    },
+    "support_jekyll": {
+      "type": "boolean",
+      "default": false,
+      "title": "support jekyll, save img to jekyll image folder",
+      "description": "Find jekyll site root dir by searching _config.yaml file.",
+      "order": 130
+    },
+    "jekyll_image_dir": {
+      "type": "string",
+      "default": "",
+      "title": "jekyll image folder",
+      "description": "",
+      "order": 140
     }
   }
 }
